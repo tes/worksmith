@@ -1,3 +1,4 @@
+var debug = require('debug')('workflow:interpolation:interpolator')
 var handlebars = require('handlebars')
 
 function Interpolator(parser) {
@@ -55,6 +56,7 @@ Interpolator.prototype.rules = {
             match: function(value) { return value[0] == '#' },
             action: function(interpolator, context, value) {
                 with(context) {
+                    debug('evaluating code', { code: value.slice(1) })
                     return eval(value.slice(1))
                 }
            }
